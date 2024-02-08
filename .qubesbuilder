@@ -1,0 +1,8 @@
+host:
+  rpm:
+    build:
+    - rpm_spec/bees.spec
+source:
+  files:
+  - url: https://github.com/Zygo/bees/archive/refs/tags/v0.10.tar.gz
+    sha256: v0.10.tar.gz.sha256
