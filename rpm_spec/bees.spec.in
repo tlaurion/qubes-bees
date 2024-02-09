@@ -16,7 +16,7 @@
 #
 
 
-Name:           qubes-bees
+Name:           bees
 Version:	@VERSION@
 Release:	1%{?dist}
 
