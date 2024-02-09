@@ -17,8 +17,9 @@
 
 
 Name:           bees
-Version:        0.10
-Release:        0
+Version:	@VERSION@
+Release:	1%{?dist}
+
 Summary:        Best-Effort Extent-Same, a btrfs deduplication agent
 License:        GPL-3.0-only
 Group:          System/Filesystems
