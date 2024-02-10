@@ -5,12 +5,7 @@ host:
 source:
   create-archive: true
   modules:
-  - git
-  - gcc-c++
-  - libbtrfs-devel
-  - libuuid-devel
   - make
-  - autotools
   files:
   - url: https://github.com/Zygo/bees/archive/refs/tags/v0.10.tar.gz
     sha256: v0.10.tar.gz.sha256
