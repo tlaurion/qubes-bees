@@ -4,6 +4,7 @@ host:
     - rpm_spec/bees.spec
 source:
   modules:
+  - git
   - gcc-c++
   - libbtrfs-devel
   - libuuid-devel
