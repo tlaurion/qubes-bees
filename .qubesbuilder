@@ -3,6 +3,7 @@ host:
     build:
     - rpm_spec/bees.spec
 source:
+  create-archive: true
   modules:
   - git
   - gcc-c++
