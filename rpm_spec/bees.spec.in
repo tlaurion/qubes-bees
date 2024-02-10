@@ -26,7 +26,7 @@ Group:          System/Filesystems
 URL:            https://github.com/Zygo/bees
 Source:         https://github.com/Zygo/bees/archive/refs/tags/v%{version}.tar.gz
 BuildRequires:  gcc-c++
-BuildRequires:  libbtrfs-devel
+BuildRequires:  btrf-progs-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  make
 
