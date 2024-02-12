@@ -33,6 +33,9 @@ Requires:       btrfs-progs
 Requires:       systemd
 Requires:       util-linux
 
+# Append the CXXFLAGS here
+CXXFLAGS += "-Wno-error=restrict"
+
 %description
 bees is a block-oriented userspace deduplication agent designed for large btrfs
 filesystems. It is an offline dedupe combined with an incremental data scan
