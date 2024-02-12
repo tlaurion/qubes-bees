@@ -50,28 +50,28 @@ Hilights:
 * Automatic self-throttling based on system load
 
 %prep
-%autosetup
+%autosetup -p1
 
-%make_build
+%build
+cat >localconf <<-EOF
+	SYSTEMD_SYSTEM_UNIT_DIR=%{_unitdir}
+	LIBEXEC_PREFIX=%{_bindir}
+	LIB_PREFIX=%{_libdir}
+	PREFIX=%{_prefix}
+	LIBDIR=%{_libdir}
+	DEFAULT_MAKE_TARGET=all
+EOF
 
 %install
-%make_install DESTDIR=%{buildroot}
+%make_install
 
 %files
 %license COPYING
 %doc README.md
 %{_bindir}/bees
-%{_sbindir}/rcbees
 %{_unitdir}/beesd@.service
-%{_unitdir}/beesd-wait.service
-%{_unitdir}/beesd-wait.path
-%{_unitdir}/beesd.service
-%{_unitdir}/beesd.path
-%{_unitdir}/beesd.target
-%{_unitdir}/beesd@.timer
-%{_unitdir}/beesd.timer
-%{_mandir}/man8/bees.8*
-%{_mandir}/man8/beesd.8*
+%dir %{_sysconfdir}/bees
+%{_sysconfdir}/bees/beesd.conf.sample
 
 %changelog
 
