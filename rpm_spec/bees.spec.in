@@ -25,10 +25,14 @@ License:        GPL-3.0-only
 Group:          System/Filesystems
 URL:            https://github.com/Zygo/bees
 Source:         https://github.com/Zygo/bees/archive/refs/tags/v%{version}.tar.gz
-BuildRequires:  gcc-c++
-BuildRequires:  btrf-progs-devel
-BuildRequires:  libuuid-devel
+BuildRequires:  pkgconfig(libbtrfs)
+BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  pkgconfig(libuuid)
 BuildRequires:  make
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+Requires:       (btrfs-progs >= 4.14.1 and btrfs-progs < 5.0) or btrfs-progs-compat
+Requires:       systemd
 
 %description
 bees is a block-oriented userspace deduplication agent designed for large btrfs
@@ -48,31 +52,28 @@ Hilights:
 * Automatic self-throttling based on system load
 
 %prep
-%autosetup -p1
+%autosetup
 
-%build
-cat >localconf <<-EOF
-	SYSTEMD_SYSTEM_UNIT_DIR=%{_unitdir}
-	LIBEXEC_PREFIX=%{_bindir}
-	LIB_PREFIX=%{_libdir}
-	PREFIX=%{_prefix}
-	LIBDIR=%{_libdir}
-	DEFAULT_MAKE_TARGET=all
-EOF
-
-%make_build BEES_VERSION=%{version}
+%make_build
 
 %install
-%make_install
+%make_install DESTDIR=%{buildroot}
 
 %files
 %license COPYING
 %doc README.md
 %{_bindir}/bees
-%{_sbindir}/beesd
+%{_sbindir}/rcbees
 %{_unitdir}/beesd@.service
-%dir %{_sysconfdir}/bees
-%{_sysconfdir}/bees/beesd.conf.sample
+%{_unitdir}/beesd-wait.service
+%{_unitdir}/beesd-wait.path
+%{_unitdir}/beesd.service
+%{_unitdir}/beesd.path
+%{_unitdir}/beesd.target
+%{_unitdir}/beesd@.timer
+%{_unitdir}/beesd.timer
+%{_mandir}/man8/bees.8*
+%{_mandir}/man8/beesd.8*
 
 %changelog
 
