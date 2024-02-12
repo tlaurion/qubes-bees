@@ -25,12 +25,10 @@ License:        GPL-3.0-only
 Group:          System/Filesystems
 URL:            https://github.com/Zygo/bees
 Source:         https://github.com/Zygo/bees/archive/refs/tags/v%{version}.tar.gz
-BuildRequires:  pkgconfig(libbtrfs)
-BuildRequires:  pkgconfig(libsystemd)
-BuildRequires:  pkgconfig(libuuid)
+BuildRequires:  gcc-c++
+BuildRequires:  libuuid-devel
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  gcc-c++
 Requires:       (btrfs-progs >= 4.14.1 and btrfs-progs < 5.0) or btrfs-progs-compat
 Requires:       systemd
 
