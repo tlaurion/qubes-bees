@@ -28,7 +28,7 @@ Source:         https://github.com/Zygo/bees/archive/refs/tags/v%{version}.tar.g
 BuildRequires:  gcc-c++
 BuildRequires:  util-linux-core
 BuildRequires:  systemd-devel
-BuildRequires:  cmake
+BuildRequires:  make
 Requires:       btrfs-progs
 Requires:       systemd
 Requires:       util-linux
@@ -42,21 +42,28 @@ capability to minimize time data spends on disk from write to dedupe.
 %autosetup
 
 %build
-# Set the compiler flags using the %set_build_flags macro
-%set_build_flags
-%cmake -D_FILE_OFFSET_BITS=64 .
-%cmake_build
+cat >localconf <<-EOF
+	SYSTEMD_SYSTEM_UNIT_DIR=%{_unitdir}
+	LIBEXEC_PREFIX=%{_bindir}
+	LIB_PREFIX=%{_libdir}
+	PREFIX=%{_prefix}
+	LIBDIR=%{_libdir}
+	DEFAULT_MAKE_TARGET=all
+EOF
+
+%make_build BEES_VERSION=%{version}
 
 %install
-%cmake_install
+%make_install
 
 %files
 %license COPYING
 %doc README.md
-%{_bindir}/beesd
-%{_libdir}/bees/libbees.so
-%{_sysconfdir}/bees/beesd.conf.sample
+%{_bindir}/bees
+%{_sbindir}/beesd
 %{_unitdir}/beesd@.service
+%dir %{_sysconfdir}/bees
+%{_sysconfdir}/bees/beesd.conf.sample
 
 %changelog
 * Mon Feb 12 2024 Thierry Laurion <insurgo@riseup.net> - 0.10-1
