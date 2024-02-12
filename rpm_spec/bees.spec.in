@@ -54,7 +54,7 @@ Highlights:
 
 %build
 # Remove the -Werror flag from the CXXFLAGS variable
-CXXFLAGS := -Wall -Wextra -O3 -I../include -D_FILE_OFFSET_BITS=64 -std=c++11 -Wold-style-cast -Wno-missing-field-initializers
+CXXFLAGS = -Wall -Wextra -O3 -I../include -D_FILE_OFFSET_BITS=64 -std=c++11 -Wold-style-cast -Wno-missing-field-initializers
 %make_build
 
 %install
