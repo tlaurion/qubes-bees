@@ -1,7 +1,23 @@
-%global VERSION 0.10
+#
+# spec file for package bees
+#
+# Copyright (c) 2023 SUSE LLC
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
+#
+
 
 Name:           bees
-Version:        %{VERSION}
+Version:	@VERSION@
 Release:        1%{?dist}
 
 Summary:        Best-Effort Extent-Same, a btrfs deduplication agent
@@ -28,7 +44,7 @@ capability to minimize time data spends on disk from write to dedupe.
 %build
 # Set the compiler flags using the %set_build_flags macro
 %set_build_flags
-%cmake -I../include -D_FILE_OFFSET_BITS=64 .
+%cmake -D_FILE_OFFSET_BITS=64 .
 %cmake_build
 
 %install
@@ -39,8 +55,10 @@ capability to minimize time data spends on disk from write to dedupe.
 %doc README.md
 %{_bindir}/beesd
 %{_libdir}/bees/libbees.so
+%{_sysconfdir}/bees/beesd.conf.sample
+%{_unitdir}/beesd@.service
 
 %changelog
-* Mon Feb 12 2024 Your Name <your.email@example.com> - 0.10-1
-- Initial package
+* Mon Feb 12 2024 Thierry Laurion <insurgo@riseup.net> - 0.10-1
+- Initial package for fedora 37
 
