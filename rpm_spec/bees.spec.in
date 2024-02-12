@@ -1,74 +1,46 @@
-#
-# spec file for package bees
-#
-# Copyright (c) 2023 SUSE LLC
-#
-# All modifications and additions to the file contributed by third parties
-# remain the property of their copyright owners, unless otherwise agreed
-# upon. The license for this file, and modifications and additions to the
-# file, is the same license as for the pristine package itself (unless the
-# license for the pristine package is not an Open Source License, in which
-# case the license is the MIT License). An "Open Source License" is a
-# license that conforms to the Open Source Definition (Version 1.9)
-# published by the Open Source Initiative.
-
-# Please submit bugfixes or comments via https://bugs.opensuse.org/
-#
-
+%global VERSION 0.10
 
 Name:           bees
-Version:	@VERSION@
-Release:	1%{?dist}
+Version:        %{VERSION}
+Release:        1%{?dist}
 
 Summary:        Best-Effort Extent-Same, a btrfs deduplication agent
 License:        GPL-3.0-only
 Group:          System/Filesystems
 URL:            https://github.com/Zygo/bees
 Source:         https://github.com/Zygo/bees/archive/refs/tags/v%{version}.tar.gz
-BuildRequires: gcc-c++
-BuildRequires: util-linux-core
-BuildRequires: systemd-devel
-Requires: btrfs-progs
-Requires: systemd
-Requires: util-linux
+BuildRequires:  gcc-c++
+BuildRequires:  util-linux-core
+BuildRequires:  systemd-devel
+BuildRequires:  cmake
+Requires:       btrfs-progs
+Requires:       systemd
+Requires:       util-linux
 
 %description
 bees is a block-oriented userspace deduplication agent designed for large btrfs
 filesystems. It is an offline dedupe combined with an incremental data scan
 capability to minimize time data spends on disk from write to dedupe.
 
-Highlights:
-
-* Space-efficient hash table and matching algorithms - can use as little as 1
-  GB hash table per 10 TB unique data (0.1GB/TB)
-* Daemon incrementally dedupes new data using btrfs tree search
-* Works with btrfs compression - dedupe any combination of compressed and uncompressed files
-* Persistent hash table for rapid restart after shutdown
-* Whole-filesystem dedupe - including snapshots
-* Constant hash table size - no increased RAM usage if data set becomes larger
-* Works on live data - no scheduled downtime required
-* Automatic self-throttling based on system load
-
 %prep
 %autosetup
 
 %build
-# Remove the -Werror flag from the CXXFLAGS variable
-CXXFLAGS = -Wall -Wextra -O3 -I../include -D_FILE_OFFSET_BITS=64 -std=c++11 -Wold-style-cast -Wno-missing-field-initializers
-%make_build
+# Set the compiler flags using the %set_build_flags macro
+%set_build_flags
+%cmake -I../include -D_FILE_OFFSET_BITS=64 .
+%cmake_build
 
 %install
-%make_install DESTDIR=%{buildroot}
+%cmake_install
 
 %files
 %license COPYING
 %doc README.md
 %{_bindir}/beesd
-%{_libdir}/bees/bees
-%{_sysconfdir}/bees/beesd.conf.sample
-%{_unitdir}/beesd@.service
+%{_libdir}/bees/libbees.so
 
 %changelog
-* Mon Feb 12 2024 Thierry Laurion <insurgo@riseup.net> - 0.10-1
-- Initial package for fedora 37
+* Mon Feb 12 2024 Your Name <your.email@example.com> - 0.10-1
+- Initial package
 
