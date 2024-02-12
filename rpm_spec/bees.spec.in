@@ -53,6 +53,8 @@ Highlights:
 %autosetup
 
 %build
+# Remove the -Werror flag from the CXXFLAGS variable
+CXXFLAGS := -Wall -Wextra -O3 -I../include -D_FILE_OFFSET_BITS=64 -std=c++11 -Wold-style-cast -Wno-missing-field-initializers
 %make_build
 
 %install
@@ -69,3 +71,4 @@ Highlights:
 %changelog
 * Mon Feb 12 2024 Thierry Laurion <insurgo@riseup.net> - 0.10-1
 - Initial package for fedora 37
+
