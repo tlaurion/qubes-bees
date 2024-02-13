@@ -34,7 +34,7 @@ Requires:       systemd
 Requires:       util-linux
 
 # This removes errors from the build process, but it's not a good practice (fc37 related)
-%global CXXFLAGS %{?CXXFLAGS} -Wno-error=restrict
+%define CXXFLAGS %{?CXXFLAGS} -Wno-error=restrict
 
 %description
 bees is a block-oriented userspace deduplication agent designed for large btrfs
