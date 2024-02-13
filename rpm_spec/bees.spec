@@ -1,25 +1,6 @@
-#
-# spec file for package bees
-#
-# Copyright (c) 2023 SUSE LLC
-#
-# All modifications and additions to the file contributed by third parties
-# remain the property of their copyright owners, unless otherwise agreed
-# upon. The license for this file, and modifications and additions to the
-# file, is the same license as for the pristine package itself (unless the
-# license for the pristine package is not an Open Source License, in which
-# case the license is the MIT License). An "Open Source License" is a
-# license that conforms to the Open Source Definition (Version 1.9)
-# published by the Open Source Initiative.
-
-# Please submit bugfixes or comments via https://bugs.opensuse.org/
-#
-
-
 Name:           bees
-Version:	@VERSION@
+Version:        0.10
 Release:        1%{?dist}
-
 Summary:        Best-Effort Extent-Same, a btrfs deduplication agent
 License:        GPL-3.0-only
 Group:          System/Filesystems
@@ -46,15 +27,15 @@ capability to minimize time data spends on disk from write to dedupe.
 
 %build
 cat >localconf <<-EOF
-	SYSTEMD_SYSTEM_UNIT_DIR=%{_unitdir}
-	LIBEXEC_PREFIX=%{_bindir}
-	LIB_PREFIX=%{_libdir}
-	PREFIX=%{_prefix}
-	LIBDIR=%{_libdir}
-	DEFAULT_MAKE_TARGET=all
+    SYSTEMD_SYSTEM_UNIT_DIR=%{_unitdir}
+    LIBEXEC_PREFIX=%{_bindir}
+    LIB_PREFIX=%{_libdir}
+    PREFIX=%{_prefix}
+    LIBDIR=%{_libdir}
+    DEFAULT_MAKE_TARGET=all
 EOF
 
-%make_build CXXFLAGS="%{CXXFLAGS}" BEES_VERSION=%{version}
+%make_build CXXFLAGS="%{CXXFLAGS}"
 
 %install
 %make_install
@@ -69,6 +50,6 @@ EOF
 %{_sysconfdir}/bees/beesd.conf.sample
 
 %changelog
-* Mon Feb 12 2024 Thierry Laurion <insurgo@riseup.net> - 0.10-1
+* Mon Apr 14 2024 Thierry Laurion <insurgo@riseup.net> - 0.10-1
 - Initial package for fedora 37
 
