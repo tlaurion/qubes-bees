@@ -1,11 +1,11 @@
 Name:           bees
-Version:        0.10
+Version:        47243aef1429dd2b3eab253f9cf99559a1108f35
 Release:        1%{?dist}
 Summary:        Best-Effort Extent-Same, a btrfs deduplication agent
 License:        GPL-3.0-only
 Group:          System/Filesystems
 URL:            https://github.com/Zygo/bees
-Source:         https://github.com/Zygo/bees/archive/refs/tags/v%{version}.tar.gz
+Source:         https://github.com/Zygo/bees/archive/47243aef1429dd2b3eab253f9cf99559a1108f35.tar.gz
 BuildRequires:  gcc-c++
 BuildRequires:  util-linux-core
 BuildRequires:  systemd-devel
@@ -50,6 +50,12 @@ EOF
 %{_sysconfdir}/bees/beesd.conf.sample
 
 %changelog
+* Mon Feb 20 2025 Thierry Laurion <insurgo@riseup.net> - 0.11-rc4
+- Initial package for fedora 37 with non-released 0.11 changes from master
+
+* Mon Jan 13 2025 Thierry Laurion <insurgo@riseup.net> - 0.11-1
+- Initial package for fedora 37 with non-released 0.11 changes from master
+
 * Mon Apr 14 2024 Thierry Laurion <insurgo@riseup.net> - 0.10-1
 - Initial package for fedora 37
 
